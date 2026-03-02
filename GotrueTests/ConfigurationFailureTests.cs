@@ -11,40 +11,49 @@ using static Supabase.Gotrue.Exceptions.FailureHint.Reason;
 
 namespace GotrueTests
 {
-	[TestClass]
-	public class ConfigurationFailureTests
-	{
-		[TestMethod("Bad URL message")]
-		public async Task BadUrlTest()
-		{
-			var client = new Client(new ClientOptions { Url = "https://badprojecturl.supabase.co", AllowUnconfirmedUserSessions = true });
-			client.AddDebugListener(LogDebug);
+    [TestClass]
+    public class ConfigurationFailureTests
+    {
+        [TestMethod("Bad URL message")]
+        public async Task BadUrlTest()
+        {
+            var client = new Client(
+                new ClientOptions
+                {
+                    Url = "https://badprojecturl.supabase.co",
+                    AllowUnconfirmedUserSessions = true,
+                }
+            );
+            client.AddDebugListener(LogDebug);
 
-			var email = $"{RandomString(12)}@supabase.io";
-			GotrueException gte = null;
-			try
-			{
-				await client.SignUp(email, PASSWORD);
-			}
-			catch (GotrueException e)
-			{
-				gte = e;
-			}
-			AreEqual(Offline, gte?.Reason);
-		}
+            var email = $"{RandomString(12)}@supabase.io";
+            GotrueException gte = null;
+            try
+            {
+                await client.SignUp(email, PASSWORD);
+            }
+            catch (GotrueException e)
+            {
+                gte = e;
+            }
+            AreEqual(Offline, gte?.Reason);
+        }
 
-		[TestMethod("Bad service key message")]
-		public async Task BadServiceApiKeyTest()
-		{
-			IGotrueAdminClient<User> adminClient = new AdminClient("bad_service_key", new ClientOptions { AllowUnconfirmedUserSessions = true });
-			AreEqual(true, ((AdminClient)adminClient).Options.AllowUnconfirmedUserSessions);
+        [TestMethod("Bad service key message")]
+        public async Task BadServiceApiKeyTest()
+        {
+            IGotrueAdminClient<User> adminClient = new AdminClient(
+                "bad_service_key",
+                new ClientOptions { AllowUnconfirmedUserSessions = true }
+            );
+            AreEqual(true, ((AdminClient)adminClient).Options.AllowUnconfirmedUserSessions);
 
-			var x = await ThrowsExceptionAsync<GotrueException>(async () =>
-			{
-				await adminClient.ListUsers();
-			});
-			
-			AreEqual(AdminTokenRequired, x.Reason);
-		}
-	}
+            var x = await ThrowsExceptionAsync<GotrueException>(async () =>
+            {
+                await adminClient.ListUsers();
+            });
+
+            AreEqual(AdminTokenRequired, x.Reason);
+        }
+    }
 }

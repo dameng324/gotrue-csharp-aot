@@ -6,14 +6,20 @@ using Supabase.Gotrue;
 using Supabase.Gotrue.Interfaces;
 using static io.notification.NotificationManager.NotificationType;
 
-namespace io.supabase {
-    public class UnitySession : IGotrueSessionPersistence<Session> {
-        private string FilePath() {
+namespace io.supabase
+{
+    public class UnitySession : IGotrueSessionPersistence<Session>
+    {
+        private string FilePath()
+        {
             const string cacheFileName = ".gotrue.cache";
-            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "Dayboard");
+            string path = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "Dayboard"
+            );
 
-            if (!Directory.Exists(path)) {
+            if (!Directory.Exists(path))
+            {
                 Directory.CreateDirectory(path);
             }
 
@@ -21,46 +27,59 @@ namespace io.supabase {
             return filePath;
         }
 
-        public void SaveSession(Session session) {
-            if (session == null) {
+        public void SaveSession(Session session)
+        {
+            if (session == null)
+            {
                 DestroySession();
                 return;
             }
 
-            try {
+            try
+            {
                 string filePath = FilePath();
-                string str = JsonConvert.SerializeObject(session);
+                string str = JsonSerializer.Serialize(session);
                 using StreamWriter file = new StreamWriter(filePath);
                 file.Write(str);
                 file.Dispose();
-            } catch (Exception) {
+            }
+            catch (Exception)
+            {
                 Console.WriteLine("Unable to write cache file.");
                 throw;
             }
         }
 
-        public void DestroySession() {
+        public void DestroySession()
+        {
             string filePath = FilePath();
-            if (File.Exists(filePath)) {
+            if (File.Exists(filePath))
+            {
                 File.Delete(filePath);
             }
         }
 
-        public Session LoadSession() {
+        public Session LoadSession()
+        {
             string filePath = FilePath();
 
-            if (!File.Exists(filePath)) return null;
+            if (!File.Exists(filePath))
+                return null;
 
             using StreamReader file = new StreamReader(filePath);
             string sessionJson = file.ReadToEnd();
 
-            if (string.IsNullOrEmpty(sessionJson)) {
+            if (string.IsNullOrEmpty(sessionJson))
+            {
                 return null;
             }
 
-            try {
+            try
+            {
                 return JsonConvert.DeserializeObject<Session>(sessionJson);
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 NotificationManager.PostMessage(Auth, "Unable to load user", e);
                 return null;
             }

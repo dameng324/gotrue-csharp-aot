@@ -1,8 +1,13 @@
 ﻿namespace Supabase.Gotrue.Mfa
 {
-	public class MfaAdminListFactorsParams
-	{
-		// Id of the user
-		public string UserId { get; set; }
-	}
+    /// <summary>
+    ///
+    /// </summary>
+    public class MfaAdminListFactorsParams
+    {
+        /// <summary>
+        ///
+        /// </summary>
+        public string UserId { get; set; } = string.Empty;
+    }
 }

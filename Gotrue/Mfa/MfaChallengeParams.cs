@@ -1,8 +1,13 @@
 ﻿namespace Supabase.Gotrue.Mfa
 {
-	public class MfaChallengeParams
-	{
-		// Id of the factor to be challenged. Returned in enroll().
-		public string FactorId { get; set; }
-	}
+    /// <summary>
+    ///
+    /// </summary>
+    public class MfaChallengeParams
+    {
+        /// <summary>
+        /// Id of the factor to be challenged. Returned in enroll().
+        /// </summary>
+        public string FactorId { get; set; } = string.Empty;
+    }
 }

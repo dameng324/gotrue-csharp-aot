@@ -186,7 +186,7 @@ internal bool SaveSession(Session session)
     {
         var cacheDir = FileSystem.CacheDirectory;
         var path = Path.Join(cacheDir, cacheFileName);
-        var str = JsonConvert.SerializeObject(session);
+        var str = JsonSerializer.Serialize(session);
 
         using (StreamWriter file = new StreamWriter(path))
         {

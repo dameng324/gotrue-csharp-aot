@@ -3,24 +3,23 @@ using Supabase.Gotrue.Interfaces;
 
 namespace GotrueTests
 {
-	public class TestSessionPersistence : IGotrueSessionPersistence<Session>
-	{
+    public class TestSessionPersistence : IGotrueSessionPersistence<Session>
+    {
+        public Session SavedSession;
 
-		public Session SavedSession;
+        public void DestroySession()
+        {
+            SavedSession = null;
+        }
 
-		public void DestroySession()
-		{
-			SavedSession = null;
-		}
+        public Session LoadSession()
+        {
+            return SavedSession;
+        }
 
-		public Session LoadSession()
-		{
-			return SavedSession;
-		}
-
-		public void SaveSession(Session session)
-		{
-			SavedSession = session;
-		}
-	}
+        public void SaveSession(Session session)
+        {
+            SavedSession = session;
+        }
+    }
 }

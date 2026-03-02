@@ -1,10 +1,16 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Supabase.Gotrue.Mfa
 {
-	public class MfaAdminListFactorsResponse
-	{
-		public List<Factor> Factors { get; set; } = new List<Factor>();
-	}
+    /// <summary>
+    ///
+    /// </summary>
+    public class MfaAdminListFactorsResponse
+    {
+        /// <summary>
+        ///
+        /// </summary>
+        public List<Factor> Factors { get; set; } = new List<Factor>();
+    }
 }

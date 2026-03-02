@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
+
 namespace Supabase.Gotrue
 {
     /// <summary>
@@ -9,6 +11,6 @@ namespace Supabase.Gotrue
         /// <summary>
         /// Optional user metadata.
         /// </summary>
-        public Dictionary<string, object>? Data { get; set; }
+        public Dictionary<string, JsonElement>? Data { get; set; }
     }
 }

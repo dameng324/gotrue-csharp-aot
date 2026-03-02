@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 namespace Supabase.Gotrue.Responses
 {
     /// <summary>

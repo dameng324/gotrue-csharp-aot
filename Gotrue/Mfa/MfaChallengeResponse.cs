@@ -1,14 +1,20 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Supabase.Gotrue.Mfa
 {
-	public class MfaChallengeResponse
-	{
-		// ID of the newly created challenge.
-		[JsonProperty("id")]
-		public string Id { get; set; }
+    /// <summary>
+    ///
+    /// </summary>
+    public class MfaChallengeResponse
+    {
+        /// ID of the newly created challenge.
+        [JsonPropertyName("id")]
+        public string Id { get; set; } = string.Empty;
 
-		[JsonProperty("expires_at")]
-		public long ExpiresAt { get; set; }
-	}
+        /// <summary>
+        ///
+        /// </summary>
+        [JsonPropertyName("expires_at")]
+        public long ExpiresAt { get; set; }
+    }
 }
